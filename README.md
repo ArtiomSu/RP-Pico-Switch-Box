@@ -145,4 +145,4 @@ _ |
 # Videos
 Part 1 | Part 2
 :---:|:---:
-[![part1](https://img.youtube.com/vi/SvOWJSmI67I/0.jpg)](https://www.youtube.com/watch?v=SvOWJSmI67I) | coming soon
+[![part1](https://img.youtube.com/vi/SvOWJSmI67I/0.jpg)](https://www.youtube.com/watch?v=SvOWJSmI67I) | [![part2](https://img.youtube.com/vi/67JiJsYJK44/0.jpg)](https://www.youtube.com/watch?v=67JiJsYJK44)
