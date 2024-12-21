@@ -2,6 +2,9 @@ import board
 from display import Display
 from ledNormal import LedNormal
 from switchAndLed import SwitchAndLed
+import digitalio
+import time
+
 class Hardware:
     display = None
     normalLedsPins = [board.GP16, board.GP17, board.GP18, board.GP19 ,board.GP20]
@@ -9,9 +12,13 @@ class Hardware:
     switchLedPins = [board.GP15, board.GP14, board.GP13, board.GP12]
     switchPins = [board.GP11, board.GP10, board.GP9, board.GP8]
     switchColours = ["orange", "blue", "purple", "red"]
+    powerPin = board.GP1
+    settingPin = board.GP6
 
     normalLeds = []
     switchAndLeds = []
+    powerSwitch = None
+    settingSwitch = None
 
     def __init__(self):
         self.display = Display()
@@ -23,6 +30,14 @@ class Hardware:
         
         for i in range(len(self.switchLedPins)):
             self.switchAndLeds.append(SwitchAndLed(self.switchLedPins[i], self.switchColours[i], i, self.switchPins[i], i))
+
+        self.powerSwitch = digitalio.DigitalInOut(self.powerPin)
+        self.powerSwitch.direction = digitalio.Direction.OUTPUT
+        self.powerSwitch.value = False
+
+        self.settingSwitch = digitalio.DigitalInOut(self.settingPin)
+        self.settingSwitch.direction = digitalio.Direction.INPUT
+        self.settingSwitch.pull = digitalio.Pull.UP
     
     def turnOffAllLeds(self):
         for led in self.normalLeds:
@@ -36,6 +51,16 @@ class Hardware:
         self.display.animateText("| Switch  Box |", frame, frameCount, "centre", 1)
         self.display.animateText("| By ArtiomSu |", frame, frameCount, "bottom", 2)
         self.display.display.refresh()
+
+    def printLogo(self):
+        self.display.printText("+-------------+", "top", 0, "centre")
+        self.display.printText("| Switch  Box |", "centre", 1, "centre")
+        self.display.printText("| By ArtiomSu |", "bottom", 2, "centre")
+
+    def powerOnAnimation(self):
+        for l in self.normalLeds:
+            l.setLed(True)
+            time.sleep(0.25)
 
     def startupAnimationLeds(self, frame):
         if frame < len(self.normalLeds):
@@ -117,3 +142,14 @@ class Hardware:
                 self.switchAndLeds[lastIndex].setLed(not isOn)
         return False
 
+    def power_pc(self, on):
+        self.powerSwitch.value = True
+        if on:
+            time.sleep(0.5)
+        else:
+            time.sleep(5)
+        self.powerSwitch.value = False
+
+    def get_setting(self):
+        # when its connected its false
+        return not self.settingSwitch.value

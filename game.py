@@ -55,6 +55,8 @@ class Game:
         self.game_started_time = 0
         self.level_started_time = 0
         self.game_state = 0
+        self.hardware.turnOffAllLeds()
+        self.hardware.display.clear()
 
     def run_game_next_state(self):
         current_time = time.monotonic_ns()

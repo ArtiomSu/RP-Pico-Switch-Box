@@ -4,7 +4,7 @@ A fun little box for playing around with switches and leds.
 
 Features a Game where you need to match the leds. You will be timed on how long it takes you to complete the game. By default there is only 5 levels but you can increase it to however many you want by changing `self.level_max = 5` inside `game.py`
 
-Coming soon: control pc power button using a sequence.
+Control pc power button using a sequence.
 
 The files I created for 3d printing are available inside the stl folder in this repo.
 
@@ -115,4 +115,34 @@ _ | _ | _
 ![wiring_1](images/4.jpg) | ![wiring_2](images/5.jpg) | ![wiring_3](images/6.jpg)
 
 
+# Turning off pc addition
 
+For this I used a 2N2222 NPN transistor. Get it from aliexpress.
+
+The wiring for the transistor looks like this when the flat edge is facing you
+
+```txt
+         +---+
+         |   |
+         +---+
+         | | |
+         | | |
+       pc+ |
+       1k resistor
+           |
+         GPIO1
+             pc-  
+```
+
+so the middle pin goes to a 1k resistor then to GPIO 1 on the pico. The other two pins just connect directly to the pc power pins.
+
+Also to enable switching between game mode and power mode, I added a wire/switch across GPIO 6 and ground. when a connection is made, it will go into power mode and when there is no power flowing through, it will go into game mode.
+
+_ | 
+:---:|
+![wiring_pc_power](images/7.jpg)
+
+# Videos
+Part 1 | Part 2
+:---:|:---:
+[![part1](https://img.youtube.com/vi/SvOWJSmI67I/0.jpg)](https://www.youtube.com/watch?v=SvOWJSmI67I) | coming soon
